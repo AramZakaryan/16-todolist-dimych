@@ -15,6 +15,7 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import {AddItemForm} from '../../components/AddItemForm/AddItemForm'
 import {Todolist} from './Todolist/Todolist'
+import {Navigate} from "react-router-dom";
 
 
 export const TodolistsList: React.FC = () => {
@@ -26,6 +27,8 @@ export const TodolistsList: React.FC = () => {
         const thunk = fetchTodolistsTC()
         dispatch(thunk)
     }, [])
+
+
 
     const removeTask = useCallback(function (id: string, todolistId: string) {
         const thunk = removeTaskTC(id, todolistId)
@@ -67,6 +70,10 @@ export const TodolistsList: React.FC = () => {
         dispatch(thunk)
     }, [dispatch])
 
+    // console.log(isLogged)
+    // if (!isLogged) {
+    //     return <Navigate to={"/login"}/>
+    // }
 
     return <>
         <Grid container style={{padding: '20px'}}>

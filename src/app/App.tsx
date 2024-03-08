@@ -12,29 +12,41 @@ import Container from '@mui/material/Container';
 import LinearProgress from '@mui/material/LinearProgress';
 import {Menu} from '@mui/icons-material';
 import {ErrorSnackbar} from '../components/ErrorSnackbar/ErrorSnackbar'
+import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
+import {Login} from "../features/Login/Login";
 
 
 function App() {
     const status = useAppSelector<RequestStatusType>((state) => state.app.status)
     return (
-        <div className="App">
-            <ErrorSnackbar/>
-            <AppBar position="static">
-                <Toolbar>
-                    <IconButton edge="start" color="inherit" aria-label="menu">
-                        <Menu/>
-                    </IconButton>
-                    <Typography variant="h6">
-                        News
-                    </Typography>
-                    <Button color="inherit">Login</Button>
-                </Toolbar>
-                {status === 'loading' && <LinearProgress/>}
-            </AppBar>
-            <Container fixed>
-                <TodolistsList/>
-            </Container>
-        </div>
+        <BrowserRouter>
+            <div className="App">
+                <ErrorSnackbar/>
+                <AppBar position="static">
+                    <Toolbar>
+                        <IconButton edge="start" color="inherit" aria-label="menu">
+                            <Menu/>
+                        </IconButton>
+                        <Typography variant="h6">
+                            News
+                        </Typography>
+                        <Button color="inherit">Login</Button>
+                    </Toolbar>
+                    {status === 'loading' && <LinearProgress/>}
+                </AppBar>
+                <Container fixed>
+                    <Container fixed>
+                        <Routes>
+                            <Route path={''} element={<TodolistsList/>}/>
+                            <Route path={'/login'} element={<Login/>}/>
+
+                            <Route path={'/404'} element={<h2 style={{alignItems: 'center'}}>PAGE NOT FOUND</h2>}/>
+                            <Route path={'*'} element={<Navigate to={'/404'}/>}/>
+                        </Routes>
+                    </Container>
+                </Container>
+            </div>
+        </BrowserRouter>
     )
 }
 
