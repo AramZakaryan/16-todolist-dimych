@@ -53,6 +53,10 @@ export const authApi = {
             AxiosResponse<ResponseType<{ userId?: number }>>,
             LoginParamsType
         >("auth/login", loginParams)
+    },
+    logout(){
+        return instance.delete<ResponseType>
+        ("auth/login")
     }
 
 

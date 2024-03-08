@@ -14,12 +14,14 @@ import {Menu} from '@mui/icons-material';
 import {ErrorSnackbar} from '../components/ErrorSnackbar/ErrorSnackbar'
 import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import {Login} from "../features/Login/Login";
-import {initializeAppTC} from "../features/Login/auth-reducer";
+import {initializeAppTC, logoutTC} from "../features/Login/auth-reducer";
 import CircularProgress from '@mui/material/CircularProgress'
+import {clearDataAC} from "../features/TodolistsList/todolists-reducer";
 
 function App() {
     const status = useAppSelector<RequestStatusType>((state) => state.app.status)
-    const isInitialized= useAppSelector(state=>state.app.isInitialized)
+    const isInitialized = useAppSelector(state => state.app.isInitialized)
+    const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
     const dispatch = useAppDispatch()
 
     useEffect(() => {
@@ -28,10 +30,14 @@ function App() {
 
     if (!isInitialized) {
         return (
-            <div style={{ position: 'fixed', top: '30%', textAlign: 'center', width: '100%' }}>
-                <CircularProgress />
+            <div style={{position: 'fixed', top: '30%', textAlign: 'center', width: '100%'}}>
+                <CircularProgress/>
             </div>
         )
+    }
+
+    const logoutHandler = () => {
+        dispatch(logoutTC())
     }
 
     return (
@@ -46,7 +52,8 @@ function App() {
                         <Typography variant="h6">
                             News
                         </Typography>
-                        <Button color="inherit">Login</Button>
+                        {isLoggedIn &&
+                            <Button color="warning" onClick={logoutHandler} sx={{marginLeft: "auto"}}>Logout</Button>}
                     </Toolbar>
                     {status === 'loading' && <LinearProgress/>}
                 </AppBar>
