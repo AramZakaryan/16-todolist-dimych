@@ -14,8 +14,8 @@ const rootReducer = combineReducers({
     todolists: todolistsReducer,
     app: appReducer,
     auth: authReducer
-
 })
+
 // непосредственно создаём store
 export const store = legacy_createStore(rootReducer, applyMiddleware(thunkMiddleware));
 // определить автоматически тип всего объекта состояния

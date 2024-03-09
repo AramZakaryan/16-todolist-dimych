@@ -49,6 +49,8 @@ export const initializeAppTC = () => (dispatch: Dispatch) => {
 }
 
 
+
+
 export const logoutTC = () => (dispatch: Dispatch<ActionsType>) => {
     dispatch(setAppStatusAC('loading'))
     authApi.logout()
@@ -66,9 +68,11 @@ export const logoutTC = () => (dispatch: Dispatch<ActionsType>) => {
         })
 }
 
+
 // types
 type ActionsType =
     | ReturnType<typeof setIsLoggedInAC>
     | SetAppStatusActionType
     | SetAppErrorActionType
     | ReturnType<typeof clearDataAC>
+

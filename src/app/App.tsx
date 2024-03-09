@@ -19,9 +19,12 @@ import CircularProgress from '@mui/material/CircularProgress'
 import {clearDataAC} from "../features/TodolistsList/todolists-reducer";
 
 function App() {
-    const status = useAppSelector<RequestStatusType>((state) => state.app.status)
-    const isInitialized = useAppSelector(state => state.app.isInitialized)
-    const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
+    const status =
+        useAppSelector<RequestStatusType>((state) => state.app.status)
+    const isInitialized =
+        useAppSelector(state => state.app.isInitialized)
+    const isLoggedIn =
+        useAppSelector(state => state.auth.isLoggedIn)
     const dispatch = useAppDispatch()
 
     useEffect(() => {
@@ -40,8 +43,8 @@ function App() {
         dispatch(logoutTC())
     }
 
+
     return (
-        <BrowserRouter>
             <div className="App">
                 <ErrorSnackbar/>
                 <AppBar position="static">
@@ -53,7 +56,9 @@ function App() {
                             News
                         </Typography>
                         {isLoggedIn &&
-                            <Button color="warning" onClick={logoutHandler} sx={{marginLeft: "auto"}}>Logout</Button>}
+                            <Button color="warning"
+                                    onClick={logoutHandler}
+                                    sx={{marginLeft: "auto"}}>Logout</Button>}
                     </Toolbar>
                     {status === 'loading' && <LinearProgress/>}
                 </AppBar>
@@ -62,14 +67,14 @@ function App() {
                         <Routes>
                             <Route path={''} element={<TodolistsList/>}/>
                             <Route path={'/login'} element={<Login/>}/>
-
-                            <Route path={'/404'} element={<h2 style={{alignItems: 'center'}}>PAGE NOT FOUND</h2>}/>
+                            <Route path={'/404'} element={
+                                <h2 style={{alignItems: 'center'}}> PAGE NOT FOUND </h2>
+                            }/>
                             <Route path={'*'} element={<Navigate to={'/404'}/>}/>
                         </Routes>
                     </Container>
                 </Container>
             </div>
-        </BrowserRouter>
     )
 }
 

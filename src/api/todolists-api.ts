@@ -58,8 +58,6 @@ export const authApi = {
         return instance.delete<ResponseType>
         ("auth/login")
     }
-
-
 }
 
 // types
